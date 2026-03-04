@@ -31,3 +31,14 @@ class Course(models.Model):
     def __str__(self):
         return self.title
     
+class Module(models.Model):
+    course = models.ForeignKey(Course, related_name="Modules", on_delete=models.CASCADE, verbose_name="Course")
+    title = models.CharField(max_length=500, verbose_name="Title")
+    description = models.TextField(blank=True, verbose_name="Description")
+    
+    class Meta:
+        verbose_name = "Topic"
+        verbose_name_plural = "Topics"
+
+    def __str__(self):
+        return self.title
