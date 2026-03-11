@@ -23,22 +23,22 @@
       <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">Головна</a>
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
             {% if request.user.is_authenticated %}
               <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-link nav-link border-0">Вихід</button>
+                <button type="submit" class="btn btn-link nav-link border-0">Logout</button>
               </form>
             {% else %}
-              <a class="nav-link" href="{% url 'login' %}">Вхід</a>
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
             {% endif %}
           </li>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" name="q" placeholder="Пошук" aria-label="Пошук">
-          <button class="btn btn-outline-light" type="submit">Пошук</button>
+          <button class="btn btn-outline-light" type="submit">Search</button>
         </form>
       </div>
     </div>
