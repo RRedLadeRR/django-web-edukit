@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from .fields import OrderField
 
 # Create your models here.
 
@@ -37,19 +38,27 @@ class Module(models.Model):
     course = models.ForeignKey(Course, related_name="Modules", on_delete=models.CASCADE, verbose_name="Course")
     title = models.CharField(max_length=500, verbose_name="Title")
     description = models.TextField(blank=True, verbose_name="Description")
+    order = OrderField(blank=True, for_fields=["course"])
     
     class Meta:
         verbose_name = "Topic"
         verbose_name_plural = "Topics"
+        ordering = ["order"]
 
     def __str__(self):
-        return self.title
+        return f"{self.order}. {self.title}"
     
 class Content(models.Model):
     module = models.ForeignKey(Module, related_name="Contents", on_delete=models.CASCADE, verbose_name="Topic")
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, verbose_name="Content type", limit_choices_to={"model__in": ("text", "file", "image", "video", "url")})
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey("content_type", "object_id")
+    order = OrderField(blank=True, for_fields=["course"])
+
+    class Meta:
+        verbose_name = "Content"
+        verbose_name_plural = "Content"
+        ordering = ["order"]
 
 class BaseContent(models.Model):
     owner = models.ForeignKey(User, related_name="%(class)s_related", on_delete=models.CASCADE, verbose_name="Author")
