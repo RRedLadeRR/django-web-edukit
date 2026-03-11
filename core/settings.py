@@ -129,4 +129,4 @@ LOGIN_REDIRECT_URL = "home"
 
 LOGIN_URL = "login"
 
-LOGOUT_URL = "logged_out"
+LOGOUT_URL = "logout"
