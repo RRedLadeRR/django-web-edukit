@@ -22,7 +22,7 @@ class Course(models.Model):
     owner = models.ForeignKey(User, related_name="courses_created", on_delete=models.CASCADE, verbose_name="Teacher")
     subject = models.ForeignKey(Subject, related_name="courses", on_delete=models.CASCADE, verbose_name="Subject")
     title = models.CharField(max_length=500, verbose_name="Title")
-    slug = models.SlugField(max_length=500, unique=True)
+    slug = models.SlugField(max_length=500, unique=True, verbose_name="Slug")
     overview = models.TextField(verbose_name="Description")
     created = models.DateTimeField(auto_now_add=True)
 
