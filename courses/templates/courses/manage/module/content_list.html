@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Topic {{ module.order|add:1 }}: {{ module.title }}
+{% endblock title %}
+
+{% block content %}
+    {% with course=module.course %}
+        <h2>
+            Course "{{ course.title }}"
+        </h2>
+        <div class="row">
+            <div class="col-3">
+                <h3>Topics</h3>
+                <ul>
+                    {% for m in course.modules.all %}
+                        <li data-id="{{ m.id }}" {% if m == module %} class="selected" {% endif %}>
+                            {% if m == module %} -> {% endif %}
+                            <a href="{% url "module_content_list" m.id %}">
+                                <span>Topic {{ m.order|add:1 }}</span><br>
+                                {{ m.title }}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li>No topics yet</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-9">
+                <h3>Topic {{ module.order|add:1 }}: {{ module.title }}</h3>
+                <hr>
+                {% for content in module.contents.all %}
+                    <div data-id="{{ content.id }}">
+                        {% with item=content.item %}
+                            <p>{{ item }}</p>
+                            <a href="#">📋</a>
+                            <form action="{% url "module_content_delete" content.id %}" class="text-decoration-none" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="🗑️">
+                            </form>
+                        {% endwith %}
+                    </div>
+                {% empty %}
+                    <p>No content yet</p>
+                {% endfor %}
+                <h4>Add: </h4>
+                
+            </div>
+        </div>
+    {% endwith %}
+{% endblock content %}
