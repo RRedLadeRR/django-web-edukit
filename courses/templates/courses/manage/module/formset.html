@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Editing: {{ course.title }}
+{% endblock title %}
+
+{% block content %}
+    <h2>Editing: {{ course.title }}</h2>
+    <div class="row">
+        <h3>Course topics</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ formset|crispy }}
+            {{ formset.managment_form }}
+            <input class="btn btn-success" type="submit" value="Save">
+            <a class="btn btn-secondary" href="{% url "manage_course_list" %}">Cancel</a>
+        </form>
+    </div>
+{% endblock content %}
