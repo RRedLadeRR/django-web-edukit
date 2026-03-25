@@ -60,7 +60,7 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
 class ContentCreateUpdateView(TemplateResponseMixin, View):
     module = None
     model = None
-    obj - None
+    object = None
     template_name = "courses/manage/content/form.html"
 
     def get_model(self, model_name):
