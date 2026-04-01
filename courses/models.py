@@ -35,7 +35,7 @@ class Course(models.Model):
         return self.title
     
 class Module(models.Model):
-    course = models.ForeignKey(Course, related_name="Modules", on_delete=models.CASCADE, verbose_name="Course")
+    course = models.ForeignKey(Course, related_name="modules", on_delete=models.CASCADE, verbose_name="Course")
     title = models.CharField(max_length=500, verbose_name="Title")
     description = models.TextField(blank=True, verbose_name="Description")
     order = OrderField(blank=True, for_fields=["course"])
@@ -49,11 +49,11 @@ class Module(models.Model):
         return f"{self.order}. {self.title}"
     
 class Content(models.Model):
-    module = models.ForeignKey(Module, related_name="Contents", on_delete=models.CASCADE, verbose_name="Topic")
+    module = models.ForeignKey(Module, related_name="contents", on_delete=models.CASCADE, verbose_name="Topic")
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, verbose_name="Content type", limit_choices_to={"model__in": ("text", "file", "image", "video", "url")})
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey("content_type", "object_id")
-    order = OrderField(blank=True, for_fields=["course"])
+    order = OrderField(blank=True, for_fields=["module"])
 
     class Meta:
         verbose_name = "Content"
