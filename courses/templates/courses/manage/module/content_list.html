@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load course %}
+
 {% block title %}
     Topic {{ module.order|add:1 }}: {{ module.title }}
 {% endblock title %}
@@ -32,8 +34,8 @@
                 {% for content in module.contents.all %}
                     <div data-id="{{ content.id }}">
                         {% with item=content.item %}
-                            <p>{{ item }}</p>
-                            <a href="#">📋</a>
+                            <p>{{ item }} ({{ item|model_name|capfirst }})</p>
+                            <a href="{% url "module_content_update" module.id item|model_name item.id %}">📋</a>
                             <form action="{% url "module_content_delete" content.id %}" class="text-decoration-none" method="post">
                                 {% csrf_token %}
                                 <input type="submit" value="🗑️">
@@ -44,7 +46,15 @@
                     <p>No content yet</p>
                 {% endfor %}
                 <h4>Add: </h4>
-                
+                {% comment %} {% with content_types=["text", "image", "file", "url", "video"] %}
+                    <ul>
+                        {% for content in content_types %}
+                            <li>
+                                <a href="{% url "module_content_create" module.id content %}">{{ content|capfirst }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endwith %} {% endcomment %}
             </div>
         </div>
     {% endwith %}
