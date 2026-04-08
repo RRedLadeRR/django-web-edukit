@@ -55,8 +55,16 @@
     {% endblock  %}
   </main>
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-  ></script>
+  {% block include_js %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>  
+  {% endblock include_js %}
+
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      {% block domready %}
+      
+      {% endblock domready %} 
+    })
+  </script>
 </body>
 </html>
