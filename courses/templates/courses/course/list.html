@@ -39,8 +39,8 @@
                                     <h5 class="card-title">{{ course.title }}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ course.subject.title }}</h6>
                                     <p class="card-text small text-muted mt-auto">
-                                        {{ course.total_modules }} courses <br>
-                                        Teacher: {{ course.owner.get_full_name }}
+                                        📋 {{ course.total_modules }} topics<br/>
+                                        👤 {{ course.owner.get_full_name }}
                                     </p>
                                     <a href="{% url "course_detail" course.slug %}" class="btn btn-primary btn-sm mt-2">Open</a>
                                 </div>

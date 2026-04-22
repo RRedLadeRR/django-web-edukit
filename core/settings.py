@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "courses",
+    "students",
     "crispy_forms",
     "crispy_bootstrap5",
     'django.contrib.admin',
@@ -128,7 +129,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Authentication
 
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "course_list"
 
 LOGIN_URL = "login"
 
