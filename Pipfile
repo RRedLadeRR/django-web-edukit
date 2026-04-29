@@ -9,6 +9,7 @@ pillow = "*"
 django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 markdown = "*"
+django-embed-video = "*"
 
 [dev-packages]
 
