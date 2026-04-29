@@ -11,6 +11,7 @@ from django.views.generic.list import ListView
 from .forms import ModuleFormSet
 from .mixins import OwnerCourseEditMixin, OwnerCourseMixin
 from .models import Course, Content, Module, Subject
+from students.forms import CourseEnrollForm
 
 # Create your views here.
 
@@ -154,3 +155,8 @@ class CourseListView(TemplateResponseMixin, View):
 class CourseDetailView(DetailView):
     model = Course
     template_name = "courses/course/detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["enroll_form"] = CourseEnrollForm(initial={"course": self.object})
+        return context

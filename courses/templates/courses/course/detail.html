@@ -24,6 +24,17 @@
           <div class="card-body">
             <h3 class="card-title mb-3 border-bottom">Course description</h3>
             <div class="card-text">{{ object.overview|markdown }}</div>
+            {% if request.user.is_authenticated %}
+              <h5 class="mb-3">📝 Course Enroll</h5>
+              <form action="{% url 'student_enroll_course' %}" method="post">
+                {% csrf_token %}
+                {{ enroll_form|crispy }}
+                <button type="submit" class="btn btn-primary">✅ Join course</button>
+              </form>
+            {% else %}
+              <p class="text-muted mb-3">Register or log in to join course:</p>
+              <a href="{% url 'student_registration' %}" class="btn btn-primary">👤 Register for enroll</a>
+            {% endif %}
           </div>
         </div>
       </div>
