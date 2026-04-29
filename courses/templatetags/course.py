@@ -14,3 +14,7 @@ def model_name(object):
 @register.filter(name="markdown")
 def markdown_filter(text):
     return mark_safe(markdown.markdown(text))
+
+@register.filter(name="has_group")
+def has_group(user, group_name):
+    return user.groups.filter(name=group_name).exists()
