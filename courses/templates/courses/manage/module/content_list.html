@@ -38,16 +38,19 @@
                 <hr>
                 <p>Contents count: {{ module.contents.all.count }}</p>
                 {% for content in module.contents.all %}
-                    <div draggable="true" class="content border border-1 p-2 mb-1 border border-1 border-secondary rounded d-flex justify-content-between align-items-center" data-id="{{ content.id }}">
+                    <div draggable="true" class="content border border-1 p-2 mb-1 border border-1 border-secondary rounded d-flex justify-content-between align-items-start gap-2" style="cursor: grab;" data-id="{{ content.id }}">
                         {% with item=content.item %}
-                            <p>{{ item }} ({{ item|model_name|capfirst }})</p>
-                            <span class="d-flex gap-2">
-                                <a class="btn btn-outline-secondary" href="{% url "module_content_update" module.id item|model_name item.id %}">✏️ Edit</a>
-                                <form action="{% url "module_content_delete" content.id %}" class="text-decoration-none" method="post">
-                                    {% csrf_token %}
-                                    <input class="btn btn-outline-danger" type="submit" value="🗑️ Delete">
-                                </form>
-                            </span>
+                            <div>
+                                <h6 class="mb-1">{{ item.title }}</h6>
+                                <span>{{ item.render }}</span>
+                            </div>
+                                <div class="d-flex align-items-center flex-nowrap gap-1">
+                                    <a class="btn btn-outline-secondary" href="{% url "module_content_update" module.id item|model_name item.id %}">✏️</a>
+                                    <form action="{% url "module_content_delete" content.id %}" class="text-decoration-none" method="post">
+                                        {% csrf_token %}
+                                        <input class="btn btn-outline-danger" type="submit" value="🗑️">
+                                    </form>
+                                </div>
                         {% endwith %}
                     </div>
                 {% empty %}
