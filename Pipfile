@@ -10,6 +10,7 @@ django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 markdown = "*"
 django-embed-video = "*"
+djangorestframework = "*"
 
 [dev-packages]
 
